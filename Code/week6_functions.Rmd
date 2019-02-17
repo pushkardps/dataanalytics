@@ -1,7 +1,7 @@
 ---
 title: "week6_functions"
 author: "Pushkar"
-date: "February 17, 2019"
+date: "January 20, 2019"
 output: html_document
 ---
 ### example data
@@ -118,8 +118,8 @@ PlantGrowth[PlantGrowth$weight < 5 & PlantGrowth$group == 'trt2', ]
 
 ```
 ### Slicing with subset(x, subset = , select = )
-x = dataframe 
-subset = logical vector which tells us which rows to keep
+x = dataframe,
+subset = logical vector which tells us which rows to keep,
 select = tells us cols to keep
 ```{r}
 # Return weight of the plant where weight < 5 and group = 'trt2'
