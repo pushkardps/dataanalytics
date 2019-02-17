@@ -1,0 +1,138 @@
+---
+title: "week6_functions"
+author: "Pushkar"
+date: "February 17, 2019"
+output: html_document
+---
+### example data
+```{r}
+x <- c('a', 'b', 'c', 'd')
+y <- c('e', 'f', 'g', 'h')
+z <- c('i', 'j', 'k', 'l')
+```
+
+### cbind() - used to combine vector or data frame by columns
+```{r}
+cbind(x,y,z)
+```
+
+### rbind() - used to combine vector or data frame by rows
+```{r}
+rbind(x,y,z)
+```
+### matrix(x, nrow, ncol, byrow) - create a matrix of order nrow X ncol
+byrow option is used to decide if the elements are filled row-wise (byrow = 0) or column-wise (1)
+```{r}
+matrix( x <- 22:29, nrow = 2 , ncol = 4, byrow = 1)
+```
+### data.frame() - create a data frame 
+A data frame is used for storing data tables. It is a list of vectors of equal length.
+```{r}
+n = c(2, 3, 5) 
+s = c("aa", "bb", "cc")
+b = c(TRUE, FALSE, TRUE)
+data.frame(n,s,b)
+```
+#### stringsAsFactors = FALSE
+By default, when you create a data frame, string vectors are interpreted as factors
+To avoid that we mention "stringsAsFactors = FALSE" in the argument of the data frame
+```{r}
+survey <- data.frame("index" = c(1, 2, 3, 4, 5),
+                     "sex" = c("m", "m", "m", "f", "f"),
+                     "age" = c(99, 46, 23, 54, 23))
+str(survey)
+```
+We can see that when not mentioned, sex vector is interpreted as a factor.
+Let us remedy this.
+```{r}
+survey <- data.frame("index" = c(1, 2, 3, 4, 5),
+                     "sex" = c("m", "m", "m", "f", "f"),
+                     "age" = c(99, 46, 23, 54, 23),
+                     stringsAsFactors = FALSE
+                     )
+str(survey)
+```
+
+### head() - view first six rows of a dataset
+```{r}
+head(ToothGrowth)
+```
+### tail() - view las six rows of a dataset
+```{r}
+tail(ToothGrowth)
+```
+### View() - opens all of the dataset in a new window
+```{r}
+View(ToothGrowth)
+```
+### summary() - gives stats like min, 1st quart., median, mean, 3rd quart. and max for all cols in the dataset
+```{r}
+summary(ToothGrowth)
+```
+### str() - gives information on the datatypes of columns in a dataset and also shows first few elements
+```{r}
+str(ToothGrowth)
+```
+### names() - outputs a string vector of all the column names in a dataset
+```{r}
+names(ToothGrowth)
+```
+### Changing column names
+```{r}
+#names(df)[1] <- "number"
+#commented out cause running it multiple time throws error 
+#because the same name is already assigned once
+```
+
+It's possible to mess up naming this way if we have too many columns
+We can play safe by using logical indexing.
+Here's how we do it.
+```{r}
+#names(df)[names(df) == "s"] <- "strings"
+#commented out cause running it multiple time throws error 
+#because the same name is already assigned once
+
+```
+
+### Slicing with [, ]
+#### lets try slicing with PlantGrowth dataset
+```{r}
+# lets have a look at the dataset
+str(PlantGrowth)
+head(PlantGrowth)
+
+# Return  the rows 1-26 and column 2 
+PlantGrowth[1:26,2]
+
+# Return first row across all cols
+PlantGrowth[1,]
+
+# Return first col across all rows
+PlantGrowth[,1]
+
+# Return a dataframe with only rows where group = 'trt1'
+PlantGrowth[PlantGrowth$group == 'trt1',]
+
+# Return a dataframe with weight < 5 and group = 'trt2'
+PlantGrowth[PlantGrowth$weight < 5 & PlantGrowth$group == 'trt2', ]
+
+```
+### Slicing with subset(x, subset = , select = )
+x = dataframe 
+subset = logical vector which tells us which rows to keep
+select = tells us cols to keep
+```{r}
+# Return weight of the plant where weight < 5 and group = 'trt2'
+subset(x = PlantGrowth, subset = weight < 5 & group == 'trt2', select = 'weight')
+
+```
+
+### with() - time saver when we need to use multiple cols of a data frame
+```{r}
+health <- data.frame("age" = c(32, 24, 43, 19, 43),
+                     "height" = c(1.75, 1.65, 1.50, 1.92, 1.80),
+                     "weight" = c(70, 65, 62, 79, 85))
+
+#calculate ratio of height to weight
+with(health, height/weight)
+```
