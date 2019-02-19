@@ -5,14 +5,20 @@ date: "February 11, 2019"
 output: html_document
 ---
 ## Objective
-The purpose of this page is to perform exploratory data analysis on the Gapminder data. In this assignment, I have performed data transformation and manipulation tasks using basic functions of dplyr package.  
+The purpose of this page is to perform exploratory data analysis on the Gapminder data. In this assignment, I have performed data transformation and manipulation tasks using basic functions of dplyr package.  </br>
+Links to github: </br>
+.rmd  -> https://github.com/pushkardps/dataanalytics/blob/master/Code/EDA_Gapminder.Rmd </br>
+.html -> https://github.com/pushkardps/dataanalytics/blob/master/Portfolio/EDA_Gapminder.html </br>
+rpubs -> http://rpubs.com/pushkardps/468894
+
 
 ## Setting up the questions
 This is an important part of the data analysis cycle. Here's what I want know from the dataset: </br>
 - Top ten countries by popuation, life expectancy, income
 - Which country boasts of the highest life expectancy? </br>
-- How has the per capita income increased over the years for the country with max per capita income? </br>
-- How populated are the countries with lowest per capita income? </br>
+- How has the per capita income increased over the years for India? </br>
+- How does per capita vary across regions? </br>
+- How does life expectancy vary with per capita income? </br>
 
 ## Packages required
 Below is a list of the packages I have used to perform data analysis
@@ -251,6 +257,7 @@ Its interesting to see that the pattern looks similar in East Asia and Europe an
 gap2015 %>% ggplot(aes(x=population, y=lifeExpectancy, size=perCapIncome)) + geom_point() +
   ggtitle("Life Expectancy vs Population vs Per Capita Income")
 ```
+</br>
 Looks like I will need to readjust the scale. Color coding by regions might also give us a beter idea of the graph we are looking at.
 
 ```{r, warning= FALSE}
