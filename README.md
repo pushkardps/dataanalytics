@@ -9,7 +9,7 @@ It contains the the practice codes done in Week 5, 6, 7, 9, 12 and the EDA Proje
 - Attributes: Country,Year,life,population,income,region
 - Rows and Columns: 41284 rows and 6 columns
 
-###Insights
+### Insights
 I have performed exploratory data analysis by combining transformed data and data visualization techniques to achieve following findings:</br>
 
 1. Qatar has the highest per capita income ($132877), Andorra has the highest life expectancy (84.1 years) and China has a population of >1.37 billion people. Somalia has the lowest per capita of only $624, Lesotho has life expectancy of only 48.5 years and Marshall Islands has only 52,933 people living in it. </br>
