@@ -1,0 +1,282 @@
+---
+title: "EDA_Project_Gapminder"
+author: "Pushkar"
+date: "February 11, 2019"
+output: html_document
+---
+## Objective
+The purpose of this page is to perform exploratory data analysis on the Gapminder data. In this assignment, I have performed data transformation and manipulation tasks using basic functions of dplyr package.  </br>
+Links to github: </br>
+.rmd  -> https://github.com/pushkardps/dataanalytics/blob/master/Code/EDA_Gapminder.Rmd </br>
+.html -> https://github.com/pushkardps/dataanalytics/blob/master/Portfolio/EDA_Gapminder.html </br>
+rpubs -> http://rpubs.com/pushkardps/468894
+
+
+## Setting up the questions
+This is an important part of the data analysis cycle. Here's what I want know from the dataset: </br>
+- Top ten countries by popuation, life expectancy, income
+- Which country boasts of the highest life expectancy? </br>
+- How has the per capita income increased over the years for India? </br>
+- How does per capita vary across regions? </br>
+- How does life expectancy vary with per capita income? </br>
+
+## Packages required
+Below is a list of the packages I have used to perform data analysis
+```{r, message=FALSE, warning=FALSE}
+library(readr) # used to import dataset
+library(dplyr) # used to perform data transformation and manipulation
+library(ggplot2) # used for data visualization
+```
+
+## Data Description
+<b>Source</b> : https://raw.githubusercontent.com/birdsarah/pydata-nc/master/tutorial/assets/gapminder.csv  
+<b>Attributes</b> : 
+<br />Country: tells us which country the data belongs to
+<br />Year: the year for which the data corresponds to
+<br />Life: life expectancy in the corresponding year for a country
+<br />Income: per capita income
+<br />Region: region to which the country belongs to
+
+
+```{r, message=FALSE}
+# import data
+gap <- data.frame(read_csv("C:/Users/pushk/Desktop/pb/Harrisburg University/Exploratory Data Analysis/Git/dataanalytics/Data/gapminder.csv"))
+
+```
+##{.tabset}
+### Dimensions 
+```{r}
+# number of rows and columns
+dim(gap)
+```
+### Column Names
+
+```{r}
+# names of columns
+names(gap)
+```
+### Top & bottom values
+```{r}
+#Checking top and bottom values
+head(gap)
+```
+```{r}
+tail(gap)
+```
+##{.tabset}
+There are 41284 rows and 6 columns. The six columns are named Country, Year, life, population, income and region. Looking at a few top and bottom rows, it appears that there are a few NA values in population and income columns
+
+##{.tabset}
+### Data types
+```{r}
+# observe data types of the dataset
+str(gap)
+```
+### Countries & Regions
+```{r}
+# number of countries in the dataset
+countries <- unique(gap$Country)
+length(countries)
+```
+
+```{r}
+# number of regions in the dataset
+unique(gap$region)
+length(unique(gap$region))
+
+```
+##{.tabset}
+The data spans across 197 countries and 6 regions
+
+##{.tabset}
+###Summary
+```{r}
+# basic summary statistics for the dataset
+summary(gap)
+```
+It appears that there are some NAs in the population column, likely due to census data not being avaialable on a per year basis. The data spans from year 1800 to as recent as 2015. It looks like the lowest per capita income is 142 while the max per capita income 182,668; it is difficult to judge this because there are NA's in the income column as well.
+
+## Exploratory Data Analysis
+```{r}
+#standardize variables
+gap2 <- gap
+names(gap2) <- c("country", "year", "lifeExpectancy", "population", "perCapIncome", "region")
+```
+
+```{r}
+#filter the dataset for year of 2015
+gap2015 <- gap2 %>% filter( year == 2015)
+```
+### A1. What are the top/ bottom 10 countries by life expectancy, population and per capita income in 2015?
+
+###{.tabset}
+####Top ten countries{.tabset}
+#####By income
+```{r}
+head(
+  gap2015  %>% 
+  select(country, region, perCapIncome) %>% 
+  arrange(desc(perCapIncome)) , 10)
+```
+
+#####By life expectancy
+```{r}
+head(
+  gap2015  %>% 
+  select(country, region, lifeExpectancy) %>% 
+  arrange(desc(lifeExpectancy)) , 10)
+
+```
+#####By population
+```{r}
+head(
+  gap2015  %>% 
+  select(country, region, population) %>% 
+  arrange(desc(population)) , 10)
+
+```
+
+####Bottom ten countries{.tabset}
+#####By income
+```{r}
+head(
+  gap2015  %>% 
+  select(country, region, perCapIncome) %>% 
+  arrange((perCapIncome)) , 10)
+```
+#####By life expectancy
+```{r}
+head(
+  gap2015  %>% 
+  select(country, region, lifeExpectancy) %>% 
+  arrange((lifeExpectancy)) , 10)
+```
+#####By population
+```{r}
+head(
+  gap2015  %>% 
+  select(country, region, population) %>% 
+  arrange((population)) , 10)
+```
+
+####{.tabset}
+For the year 2015,  <b> Qatar has the highest per capita income at $132877</b>, followed by Luxembourg at $88314 and Kuwait at $82633.  <b> Andorra </b> , Japan and Switzerland have the <b> highest life expectancies </b> at  <b> 84.1 years </b> , 83.5 and 82.9 respectively.  <b> China </b>  is the <b> most populated country </b> with a population of  <b> 1,376,048,943 </b>  followed by India 1,311,050,527 followd by United States with only 321,773,631.
+
+The  <b> lowest per capita </b>  for 2015 belonged to  <b> Somalia  </b>  at  <b> $624 </b> , followed by Burundi at $777 and Malawi at $799.  <b> Least life expectancy </b>  was observed in  <b> Lesotho  </b> at  <b> 48.5 years</b> , Swaziland a 51.5 and Guinea-Bissau at 53.40. The <b>least  populated countries  </b>are  <b>Marshall Islands </b>, Andorra and Dominica with population of  <b>52933 </b>, 70473 and 72680 respectively.
+
+####{.tabset}
+### A2. Plot per capita income of India over the years
+```{r}
+pciIndia <-gap2 %>% filter(country=="India") %>%
+            ggplot() +
+            geom_step(mapping = aes(x = year,y=perCapIncome),linetype=1,color='blue') +
+            ggtitle("Per Capita Income of India across all years") +
+            labs(y="Per Capita Income", x="Year")  
+pciIndia
+```
+</br>
+It looks the per capita income fell from the early 1900s right till 1950, per capita income seems to have increased from 1950s with steep increases from 1990's to current.
+
+### A3. Compare per capita income across regions
+
+```{r}
+pciRegions <- gap2015 %>% arrange(perCapIncome) %>%
+              ggplot(data = gap2015,mapping = aes(x = region,y=perCapIncome,color = region)) +
+              geom_boxplot(outlier.colour = "red", outlier.shape = 1) +
+              coord_flip() +
+              ggtitle("Distribution of Per Capita Income for different regions in 2015") +
+              labs(y="Per Capita Income", x="Regions")
+pciRegions
+
+```
+</br>
+The box-plot shows that developed regions like Europe & Central Asia have larger per capita income compared to lesser developed regions like Sub-Saharan Africa or South Asia. It is surprising to see America region comparable to Middle East & North Africa but that is due to a lot of less developed countries present in the America region.
+
+
+```{r, echo = FALSE, results= 'hide'}
+
+#why is America region comparable to Middle East & North Africa in the per capita income box plot?
+mena <- gap2015 %>% filter(region == "Middle East & North Africa") %>% select(country, perCapIncome) %>% arrange(desc(perCapIncome))
+
+amer <- gap2015 %>% filter(region == "America") %>% select(country, perCapIncome) %>% arrange(desc(perCapIncome))
+
+mena
+amer
+
+```
+### A4. Distribution of life expectancy across countries 
+```{r}
+  options(scipen=10000)
+
+  gap2015 %>%
+  ggplot() + 
+  geom_histogram(mapping = aes(x = (perCapIncome)), binwidth = 1500, color = "blue") +
+  ggtitle("Histogram of Per Capita Income") +
+  labs(x="Per Capita Income", y="# of countries")  + 
+  scale_x_continuous(breaks = seq(0,135000,10000), limits = c(0,140000)) +
+  scale_y_continuous(breaks = seq(0,35,5), limits = c(0,30))
+
+```
+</br>
+
+It looks like majority (80.4%) of the countries lie below $30000. Only 10 countries have per capita income above $50000 and the outlier on the far right with a per capita income of 132877 is Qatar
+
+```{r}
+below30k <- 100 * nrow(filter(gap2015, perCapIncome < 30000)) / nrow(gap2015)
+below30k
+above50K <- nrow(filter(gap2015, perCapIncome > 50000))
+above50K
+above130 <- filter(gap2015, perCapIncome >130000)
+above130
+```
+
+### A5. How does life expectancy vary with per capita income?
+
+```{r, message=FALSE, warning= FALSE}
+options(scipen=10000)
+
+bb <-gap2015 %>% ggplot(aes(x = perCapIncome, y = lifeExpectancy)) + geom_point() + geom_smooth(se=F) + ggtitle("Life Expectency Vs Per Capita Income in 2015") + labs(x="Per Capita Income", y="Life Expectancy")
+
+bb + scale_x_continuous(breaks = seq(0,140000,20000), limits = c(0,140000))
+```
+</br>
+From the graph, it looks like life expectancy mproves with increase in per capita income but this has to be taken with a grain of salt because of the outlier and certain higher income countries. If we look closely then some countries with per capita income below $10000 whose life expectancies are comparable to countries with per capita income above $10000. Also there are countries with income between $40000 and $60000 who have higher life expectancies than countries with greater than $60000 of income.
+
+I am curious to if this pattern remains the same across regions. Lets have a look.
+```{r, warning= FALSE, message= FALSE}
+bb <-gap2015 %>% ggplot(aes(x = perCapIncome, y = lifeExpectancy)) +facet_wrap(~ region)+
+ geom_point() + geom_smooth(se=F) + ggtitle("Life Expectency Vs Per Capita Income in 2015") + labs(x="Per Capita Income", y="Life Expectancy")
+
+bb + scale_x_continuous(breaks = seq(0,100000,50000), limits = c(0,140000))
+```
+</br>
+Its interesting to see that the pattern looks similar in East Asia and Europe and Central Asia but looks a bit different for America and Middle East most likely due to extremes found the underlying data. The curve looks steep in South Asia, that might be due to less number of samples in the South Asia segment. The pattern does not make any sense in Sub-Saharan Africa region.  
+
+### A6. How does life expectancy vary with population and per capita income?
+```{r, warning= FALSE }
+gap2015 %>% ggplot(aes(x=population, y=lifeExpectancy, size=perCapIncome)) + geom_point() +
+  ggtitle("Life Expectancy vs Population vs Per Capita Income")
+```
+</br>
+Looks like I will need to readjust the scale. Color coding by regions might also give us a beter idea of the graph we are looking at.
+
+```{r, warning= FALSE}
+gap2015 %>% ggplot(aes(x=population, y=lifeExpectancy, size=perCapIncome, color = region)) + geom_point()  + scale_x_log10() + ggtitle("Life Expectancy vs Population vs Per Capita Income")
+```
+</br>
+Let us also try to split graphs by regions
+```{r, warning= FALSE}
+gap2015 %>% ggplot(aes(x=population, y=lifeExpectancy, size=perCapIncome)) + facet_wrap(~region) + geom_point()  + scale_x_log10() + ggtitle("Life Expectancy vs Population vs Per Capita Income")
+```
+</br>
+It looks like Middle East & North Africa region have the least amount of variability when it comes to population while East Asia & Pacific has the most variability. Its interesting to note that most of the Europe & Central Asia countries have higher per capita income and life expectancy than that of other regions. There are some countries in Europe & Central Asia who have high per capita income despite population being less than 1000000. Its even more surprising to see similar examples in Sub-Saharan Africa. 
+
+## Conclusion
+I have performed exploratory data analysis by combining transformed data and data visualization techniques to achieve following findings:</br>
+
+1. Qatar has the highest per capita income ($132877), Andorra has the highest life expectancy (84.1 years) and China has a population of >1.37 billion people. Somalia has the lowest per capita of only $624, Lesotho has life expectancy of only 48.5 years and Marshall Islands has only 52,933 people living in it. </br>
+2. India's  per capita income fell from the early 1900s right till 1950, seems to have increased from 1950s with steep increases from 1990's to current.</br>
+3. Regions like Europe & Central Asia have larger per capita income compared to lesser developed regions like Sub-Saharan Africa or South Asia. Per capita income of America region was found comparable to Middle East & North Africa which might be due to less developed countries present in the America region.</br>
+4. Majority (80.4%) of the countries have per capita income below $30000. Only 10 countries have per capita income above $50000</br>
+5. Life expectancy improves with increase in per capita income but this has to be taken with a grain of salt because of the outlier and certain higher income countries.</br>
+6. Europe & Central Asia  have countries with higher per capita income and life expectancy than that of other regions. There are some countries in Europe & Central Asia who have high per capita income despite population being less than 1000000.</br>
