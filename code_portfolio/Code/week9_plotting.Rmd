@@ -31,7 +31,7 @@ Between 0 to 1, it appears like increase in carat leads to pricier diamonds
 
 ```{r}
 ggplot(diamonds) + 
-  geom_histogram(mapping = aes(x = y), binwidth = 0.5)
+  geom_histogram(mapping = aes(x = y), binwidth = 0.5) + ggtitle("weird diamonds$y plot")
 ```
 There's something weird with the plot. The y axis is taking a lot of space even if we do not see any points on the screen. There might be some outliers which are not clearly visible here.To make it easy to see the unusual values, we need to zoom to small values of the y-axis with coord_cartesian()
 ```{r}
@@ -47,7 +47,7 @@ use mutate function.
 diamonds2 <- diamonds %>%   mutate(y = ifelse(y < 3 | y > 20, NA, y))
 
 ggplot(data = diamonds2, mapping = aes(x = x, y = y)) + 
-  geom_point()
+  geom_point()+ ggtitle("Diamonds$x vs Diamonds$y")
 ```
 geom_point() will always show if values have been removed. na.rm function can be used to suppres that.
 ```{r}
