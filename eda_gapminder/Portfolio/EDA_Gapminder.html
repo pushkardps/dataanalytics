@@ -131,7 +131,7 @@ $(document).ready(function () {
 
 <div id="objective" class="section level2">
 <h2>Objective</h2>
-<p>The purpose of this page is to perform exploratory data analysis on the Gapminder data. In this assignment, I have performed data transformation and manipulation tasks using basic functions of dplyr package. </br> Links to github: </br> .rmd -&gt; <a href="https://github.com/pushkardps/dataanalytics/blob/master/Code/EDA_Gapminder.Rmd" class="uri">https://github.com/pushkardps/dataanalytics/blob/master/Code/EDA_Gapminder.Rmd</a> </br> .html -&gt; <a href="https://github.com/pushkardps/dataanalytics/blob/master/Portfolio/EDA_Gapminder.html" class="uri">https://github.com/pushkardps/dataanalytics/blob/master/Portfolio/EDA_Gapminder.html</a> </br> rpubs -&gt; <a href="http://rpubs.com/pushkardps/468894" class="uri">http://rpubs.com/pushkardps/468894</a></p>
+<p>The purpose of this page is to perform exploratory data analysis on the Gapminder data. In this assignment, I have performed data transformation and manipulation tasks using basic functions of dplyr package. </br> Links to github: </br> .rmd -&gt; <a href="https://github.com/pushkardps/dataanalytics/blob/master/eda_gapminder/Code/EDA_Gapminder.Rmd" class="uri">https://github.com/pushkardps/dataanalytics/blob/master/eda_gapminder/Code/EDA_Gapminder.Rmd</a> </br> .html -&gt; <a href="https://github.com/pushkardps/dataanalytics/blob/master/eda_gapminder/Portfolio/EDA_Gapminder.html" class="uri">https://github.com/pushkardps/dataanalytics/blob/master/eda_gapminder/Portfolio/EDA_Gapminder.html</a> </br> rpubs -&gt; <a href="http://rpubs.com/pushkardps/468894" class="uri">http://rpubs.com/pushkardps/468894</a></p>
 </div>
 <div id="setting-up-the-questions" class="section level2">
 <h2>Setting up the questions</h2>
@@ -149,7 +149,7 @@ library(ggplot2) # used for data visualization</code></pre>
 <p><b>Source</b> : <a href="https://raw.githubusercontent.com/birdsarah/pydata-nc/master/tutorial/assets/gapminder.csv" class="uri">https://raw.githubusercontent.com/birdsarah/pydata-nc/master/tutorial/assets/gapminder.csv</a><br />
 <b>Attributes</b> : <br />Country: tells us which country the data belongs to <br />Year: the year for which the data corresponds to <br />Life: life expectancy in the corresponding year for a country <br />Income: per capita income <br />Region: region to which the country belongs to</p>
 <pre class="r"><code># import data
-gap &lt;- data.frame(read_csv(&quot;C:/Users/pushk/Desktop/pb/Harrisburg University/Exploratory Data Analysis/Git/dataanalytics/Data/gapminder.csv&quot;))</code></pre>
+gap &lt;- data.frame(read_csv(&quot;C:/Users/pushk/Desktop/pb/Harrisburg University/Exploratory Data Analysis/Git/dataanalytics/eda_gapminder/Data/gapminder.csv&quot;))</code></pre>
 </div>
 <div id="section" class="section level2 tabset">
 <h2></h2>
@@ -375,14 +375,14 @@ gap2015 &lt;- gap2 %&gt;% filter( year == 2015)</code></pre>
 ## 10 Sao Tome and Principe    Sub-Saharan Africa     190344</code></pre>
 </div>
 </div>
-<div id="section-6" class="section level4 tabset">
-<h4></h4>
+</div>
+<div id="section-6" class="section level3 tabset">
+<h3></h3>
 <p>For the year 2015, <b> Qatar has the highest per capita income at $132877</b>, followed by Luxembourg at $88314 and Kuwait at $82633. <b> Andorra </b> , Japan and Switzerland have the <b> highest life expectancies </b> at <b> 84.1 years </b> , 83.5 and 82.9 respectively. <b> China </b> is the <b> most populated country </b> with a population of <b> 1,376,048,943 </b> followed by India 1,311,050,527 followd by United States with only 321,773,631.</p>
 <p>The <b> lowest per capita </b> for 2015 belonged to <b> Somalia </b> at <b> $624 </b> , followed by Burundi at $777 and Malawi at $799. <b> Least life expectancy </b> was observed in <b> Lesotho </b> at <b> 48.5 years</b> , Swaziland a 51.5 and Guinea-Bissau at 53.40. The <b>least populated countries </b>are <b>Marshall Islands </b>, Andorra and Dominica with population of <b>52933 </b>, 70473 and 72680 respectively.</p>
 </div>
-<div id="section-7" class="section level4 tabset">
-<h4></h4>
-</div>
+<div id="section-7" class="section level3 tabset">
+<h3></h3>
 </div>
 <div id="a2.-plot-per-capita-income-of-india-over-the-years" class="section level3">
 <h3>A2. Plot per capita income of India over the years</h3>
@@ -407,7 +407,7 @@ pciRegions</code></pre>
 </div>
 <div id="a4.-distribution-of-life-expectancy-across-countries" class="section level3">
 <h3>A4. Distribution of life expectancy across countries</h3>
-<pre class="r"><code>  options(scipen=10000)
+<pre class="r"><code>  options(scipen=10000) #to ensure x axis shows like normal in the graph
 
   gap2015 %&gt;%
   ggplot() + 
