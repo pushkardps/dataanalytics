@@ -1,8 +1,12 @@
-# Code Portfolio Repository
-This repository is a collection of code and figures used to create the Code Portfolio.
-It contains the the practice codes done in Week 5, 6, 7, 9, 12 and the EDA Project.
+# Data Analytics Repository
+This repository contains the semester long learning of R in the form of weekly assignments in code_portfolio and culmination of the entire learning of the course in the form of eda_gapminder.
 
-## EDA Gapminder Project
+## Code Portfolio
+This folder is a collection of code and figures used to create the Code Portfolio.
+It contains the the practice codes done in Week 5, 6, 7, 9, 12.
+
+## EDA Gapminder
+This folder is a collection of data, codes, figures and html files associated with the eda gapminder project.
 ### Data Description 
 - Gapminder data
 - Source: https://raw.githubusercontent.com/birdsarah/pydata-nc/master/tutorial/assets/gapminder.csv
