@@ -3,7 +3,7 @@ This repository contains the semester long learning of R in the form of weekly a
 
 ## Code Portfolio
 This folder is a collection of code and figures used to create the Code Portfolio.
-It contains the the practice codes done in Week 5, 6, 7, 9, 12 from the book "YaRrr! The Pirate’s Guide to R"(https://bookdown.org/ndphillips/YaRrr/) by Nathaniel D. Phillips
+It contains the the practice codes done in Week 5, 6, 7, 9, 12 from the book ["YaRrr! The Pirate’s Guide to R"] (https://bookdown.org/ndphillips/YaRrr/) by Nathaniel D. Phillips
 
 ## EDA Gapminder
 This folder is a collection of data, codes, figures and html files associated with the eda gapminder project.
