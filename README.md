@@ -1,5 +1,5 @@
 # Data Analytics Repository
-This repository contains the semester long learning of R in the form of weekly assignments in code_portfolio and culmination of the entire learning of the course in the form of eda_gapminder.
+This repository contains the semester long learning of R in the form of weekly assignments in code_portfolio and culmination of the entire learning of the course in the form of eda_gapminder, a data analysis project on the gapminder data.
 
 ## Code Portfolio
 This folder is a collection of code and figures used to create the Code Portfolio.
