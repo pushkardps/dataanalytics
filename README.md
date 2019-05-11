@@ -1,5 +1,5 @@
 # Data Analytics Repository
-This repository contains the semester long learning of R in the form of weekly assignments in code_portfolio and culmination of the entire learning of the course in the form of eda_gapminder, a data analysis project on the gapminder data.
+This repository contains the semester long learning of R in the form of weekly assignments in code_portfolio and culmination of the entire learning of the course in the form of [eda_gapminder](http://rpubs.com/pushkardps/468894), a data analysis project on the gapminder data.
 
 ## Code Portfolio
 This folder is a collection of code and figures used to create the Code Portfolio.
@@ -24,7 +24,8 @@ I have performed exploratory data analysis by combining transformed data and dat
 6. Europe & Central Asia  have countries with higher per capita income and life expectancy than that of other regions. There are some countries in Europe & Central Asia who have high per capita income despite population being less than 1000000.</br>
 
 
-
+You can have a look at the code and insights at:
+http://rpubs.com/pushkardps/468894
 
 
 
